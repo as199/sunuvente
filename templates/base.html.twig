@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        {% endblock %}
+        <link rel="stylesheet" href="{{asset('/css/styles.css')}}">
+        <link rel="stylesheet" href="{{asset('/css/simple-sidebar.css')}}">
+    </head>
+    <body>
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar -->
+            <div class="bg-info border-right" id="sidebar-wrapper">
+
+                <div class="list-group list-group-flush" id="menu">
+                    <a href="{{ path('addEtudiant')}}"
+                        class="font list-group-item list-group-item-action
+                        bg-info text-light {% if current_menu is defined and
+                        current_menu =="properties"
+                        %}active{% endif %}"><i class='fas fa-file-signature'
+                            style='font-size:24px;color:blue'></i>Ajouter
+                        Etudiant</a>
+                    <a href="{{ path('listerEtudiant')}}"
+                        class="font list-group-item list-group-item-action
+                        bg-info text-light"><i class='fas fa-edit'
+                            style='font-size:24px;color:blue'></i>Lister
+                        Etudiant</a>
+                    <a href="{{ path('addChambre')}}"
+                        class="font list-group-item list-group-item-action
+                        bg-info text-light"><i class='fas fa-user-plus'
+                            style='font-size:24px;color:blue'></i>Ajouter
+                        Chambre</a>
+                    <a href="{{ path('listerChambre')}}"
+                        class="font list-group-item list-group-item-action
+                        bg-info text-light"><i class='fas fa-user-edit'
+                            style='font-size:24px;color:blue'></i>Lister Chambre</a>
+                </div>
+
+            </div>
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper" style="background-color: #97e4f0">
+                <nav class="navbar navbar-expand-lg navbar-light bg-info
+                    border-bottom">
+                    <button class="btn btn-primary" id="menu-toggle">Menu</button>
+                </nav>
+                <div class="container-fluid" id="contenu" style="overflow:
+                    scroll;height: 550px;">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+
+            {% block javascripts %}{% endblock %}
+            <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+            <script
+                src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/ nbootstrap.min.js"></script> -->
+            <script type="text/javascript"
+                src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+            <!-- mes fonctions js  -->
+            <script src="{{asset('/js/home.js')}}"></script>
+        </body>
+    </html>
