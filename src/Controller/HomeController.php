@@ -75,7 +75,7 @@ class HomeController extends AbstractController
         $etudiants =  $paginator->paginate(
             $repo->findEtudiant($search),
             $request->query->getInt('page', 1),
-            5
+            10
         );
 
         return $this->render('page/listerstudent.html.twig', [
@@ -125,9 +125,14 @@ class HomeController extends AbstractController
     /**
      * @Route("/page/listerCha", name="listerChambre")
      */
-    public function listerChambre(ChambreRepository $repo)
+    public function listerChambre(Request $request, ChambreRepository $repo, PaginatorInterface $paginator)
     {
-        $chambres = $repo->findAll();
+        $chambres = $repo->getChambre();
+        $chambres = $paginator->paginate(
+            $repo->getChambre(),
+            $request->query->getInt('page', 1),
+            10
+        );
         return $this->render('page/listerChambre.html.twig', [
             'controller_name' => 'HomeController',
             'chambres' => $chambres

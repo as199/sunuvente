@@ -18,6 +18,12 @@ class ChambreRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Chambre::class);
     }
+    public function getChambre(){
+        return $this->createQueryBuilder('c')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     // /**
     //  * @return Chambre[] Returns an array of Chambre objects
