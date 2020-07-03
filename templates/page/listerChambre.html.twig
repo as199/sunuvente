@@ -1,5 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>page lister chambre</h1>
+<h3 class="text text-center" >liste chambre</h3>
+{% for message in app.flashes('success') %}
+  <div class="alert alert-success">
+    {{ message }}
+  </div>
+{% endfor %}
+<table class="table table-striped table-sm table-bordered text-dark bg-light" id="myTable" style="font-size: 15px;">
+  <thead>
+    <!-- entete de la table -->
+    <tr class="text-center text-light text-secondary bg-danger">
+      <th>Numéro Chambre</th>
+      <th>Type</th>
+      <th>Action</th>
+
+    </tr>
+  </thead>
+  <!-- corps de la table -->
+  <tbody>
+    {% for chambre in chambres %}
+    <tr class="text-center text-secondary">
+
+      <td>{{ chambre.numChambre }} </td>
+      <td> {{ chambre.type }}</td>
+      <td><a href="{{ path('chambre_show', {'id': chambre.id}) }}" title="edit
+          chambre" class="btn btn-secondary editBtn" id="{{chambre.id}}">Editer</a>
+          <form action="{{ path('chambre_delete',{'id': chambre.id} ) }}" method="post" style="display: inline-block" onsubmit="return confirm('Voulez vous supprimer ?')">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ chambre.id) }}">
+            <button class="btn btn-danger">delete</button>
+          </form>
+
+
+        </td>
+
+
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

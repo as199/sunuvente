@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>page voir un Etudiant</h1>
+<div class="container">
+  <div class="form-row col-md-12">
+    <div class="col-md-6">
+      <label for="">Matricule</label>
+      <input class="form-control" type="text" name=""
+        value="{{etudiant.matricule}}" id="">
+    </div>
+    <div class="col-md-6">
+      <label for="">Prenom</label>
+      <input class="form-control" type="text" name=""
+        value="{{etudiant.prenom}}" id="">
+    </div>
+  </div>
+  <div class="form-row col-md-12">
+    <div class="col-md-6">
+      <label for="">Nom</label>
+      <input class="form-control" type="text" name="" value="{{etudiant.nom}}"
+        id="">
+    </div>
+    <div class="col-md-6">
+      <label for="">Email</label>
+      <input class="form-control" type="text" name=""
+        value="{{etudiant.email}}" id="">
+    </div>
+  </div>
+  <div class="form-row col-md-12">
+    <div class="col-md-6">
+      <label for="">Date de Naissance</label>
+      <input class="form-control" type="text" name=""
+        value="{{etudiant.dateNaissance | date('d/m/Y')}}" id="">
+    </div>
+    <div class="col-md-6">
+      <label for="">Téléphone</label>
+      <input class="form-control" type="text" name=""
+        value="{{etudiant.telephone}}" id="">
+    </div>
+  </div>
+  {% if etudiant.type == 'boursierloger' %}
+  <div class="form-row col-md-12">
+    <div class="col-md-6">
+      <label for="">Numéro Chambre</label>
+      <input class="form-control" type="text" name=""
+        value="{{etudiant.numChambre}}" id="">
+    </div>
+    <div class="col-md-6">
+      <label for="">Montant Bourse</label>
+      <input class="form-control" type="text" name=""
+        value="{{etudiant.montantBourse}}" id="">
+    </div>
+  </div>
+  {% endif %}
+  {% if etudiant.type == 'boursiernonloger' %}
+  <div class="form-row col-md-12">
+    <div class="col-md-6">
+      <label for="">Montant Bourse</label>
+      <input class="form-control" type="text" name=""
+        value="{{etudiant.montantBourse}}" id="">
+    </div>
+  </div>
+  {% endif %}
+  {% if etudiant.type == 'nonboursier' %}
+  <div class="form-row col-md-12">
+    <div class="col-md-6">
+      <label for="">Adresse</label>
+      <input class="form-control" type="text" name=""
+        value="{{etudiant.adresse}}"
+        id="">
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

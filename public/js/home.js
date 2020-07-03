@@ -3,6 +3,10 @@ $(document).ready(function () {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
   });
+  $("#cacheMontant").hide("slow");
+  $("#cacheChambre").hide("slow");
+  $("#cacheAdresse").hide("slow");
+
   // $("#menu a").click(function () {
   //   page = $(this).attr("href");
   //   $.ajax({
@@ -17,6 +21,24 @@ $(document).ready(function () {
   //   })
   //   return false;
   // });
+});
+$("#etudiant_type").change(function () {
+  var type = $("#etudiant_type").val();
+  if (type == "nonboursier") {
+    $("#cacheAdresse").show("slow");
+    $("#cacheMontant").hide("slow");
+    $("#cacheChambre").hide("slow");
+  }
+  if (type == "boursierloger") {
+    $("#cacheMontant").show("slow");
+    $("#cacheChambre").show("slow");
+    $("#cacheAdresse").hide("slow");
+  }
+  if (type == "boursiernonloger") {
+    $("#cacheMontant").show("slow");
+    $("#cacheChambre").hide("slow");
+    $("#cacheAdresse").hide("slow");
+  }
 });
 
 // function afficher(data) {

@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\EtudiantRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=EtudiantRepository::class)
  */
@@ -19,21 +19,33 @@ class Etudiant
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Unique
      */
     private $matricule;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\Regex(
+     * pattern     = "/^[a-z]+$/i",
+     * htmlPattern = "^[a-zA-Z]+$"
+     * )
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *  pattern     = "/^[a-z]+$/i",
+     *  htmlPattern = "^[a-zA-Z]+$"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     * message = " email '{{ value }}' invalide."
+     * )
      */
     private $email;
 
@@ -59,13 +71,16 @@ class Etudiant
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^[0-9]{9}$/")
      */
     private $telephone;
 
+
+
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity=Chambre::class, inversedBy="matricules")
      */
-    private $numChambre;
+    private $chambre;
 
     public function getId(): ?int
     {
@@ -180,15 +195,31 @@ class Etudiant
         return $this;
     }
 
-    public function getNumChambre(): ?string
+    //public function getNumChambre(): ?string
+    // {
+    //     return $this->numChambre;
+    // }
+
+    // public function setNumChambre(?string $numChambre): self
+    // {
+    //     $this->numChambre = $numChambre;
+
+    //     return $this;
+    // }
+
+    public function getChambre(): ?Chambre
     {
-        return $this->numChambre;
+        return $this->chambre;
     }
 
-    public function setNumChambre(?string $numChambre): self
+    public function setChambre(?Chambre $chambre): self
     {
-        $this->numChambre = $numChambre;
+        $this->chambre = $chambre;
 
         return $this;
     }
+
+
+
+
 }
