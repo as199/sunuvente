@@ -127,7 +127,7 @@ class HomeController extends AbstractController
      */
     public function listerChambre(Request $request, ChambreRepository $repo, PaginatorInterface $paginator)
     {
-        $chambres = $repo->getChambre();
+
         $chambres = $paginator->paginate(
             $repo->getChambre(),
             $request->query->getInt('page', 1),
