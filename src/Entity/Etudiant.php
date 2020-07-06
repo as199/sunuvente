@@ -219,4 +219,17 @@ class Etudiant
 
         return $this;
     }
+
+    public function coupe($nom, $prenom)
+    {
+        $mot = '';
+        $mot1 = $nom[0] . $nom[1];
+
+        $n = strlen($prenom);
+        $m = $n - 2;
+        $mot2 = $prenom[$m] . $prenom[$n - 1];
+        $distict = date("is");
+        $matricule = $mot1 . $mot2 . $distict;
+        return $matricule;
+    }
 }

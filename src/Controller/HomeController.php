@@ -33,21 +33,23 @@ class HomeController extends AbstractController
     /**
      * @Route("/page/addEtu", name="addEtudiant")
      */
-    public function addstudent(Etudiant $etudiant=null, Request $request, ManagerRegistry $manager)
+    public function addstudent(Etudiant $etudiant = null, Request $request, ManagerRegistry $manager)
     {
 
-            $etudiant = new Etudiant();
+        $etudiant = new Etudiant();
 
 
         $form = $this->createForm(EtudiantType::class, $etudiant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($etudiant->getType() == "boursiernonloger"){
+            $matricules = $etudiant->coupe($etudiant->getNom(), $etudiant->getPrenom());
+            $etudiant->setMatricule($matricules);
+            if ($etudiant->getType() == "boursiernonloger") {
                 $etudiant->setChambre(null);
             }
 
-            if($etudiant->getType() == "nonboursier"){
+            if ($etudiant->getType() == "nonboursier") {
                 $etudiant->setChambre(null);
                 $etudiant->setMontantBourse(0);
             }
@@ -81,7 +83,7 @@ class HomeController extends AbstractController
         return $this->render('page/listerstudent.html.twig', [
             'controller_name' => 'HomeController',
             'etudiants' => $etudiants,
-            'form'=>$form->createView()
+            'form' => $form->createView()
         ]);
     }
 
@@ -99,9 +101,9 @@ class HomeController extends AbstractController
     /**
      * @Route("/page/addCha", name="addChambre")
      */
-    public function addChambre(Chambre $chambre= null, Request $request, ManagerRegistry $manager)
+    public function addChambre(Chambre $chambre = null, Request $request, ManagerRegistry $manager)
     {
-        if(!$chambre){
+        if (!$chambre) {
             $chambre = new Chambre();
         }
 
@@ -142,7 +144,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/page/id/{id}", name="chambre_show", methods="GET|POST")
      */
-    public function edit(Chambre $chambre,Request $request, ManagerRegistry $manager)
+    public function edit(Chambre $chambre, Request $request, ManagerRegistry $manager)
     {
 
 
@@ -152,8 +154,8 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-           $managers = $manager->getManager();
-           $managers->persist($chambre);
+            $managers = $manager->getManager();
+            $managers->persist($chambre);
             $managers->flush();
             $this->addFlash('success', 'Modification réussie avec success');
             return $this->redirectToRoute('listerChambre');
@@ -167,12 +169,12 @@ class HomeController extends AbstractController
     /**
      * @Route("/page/id/{id}", name="chambre_delete", methods="DELETE")
      */
-    public function delete(Chambre$chambre, Request $request,ManagerRegistry $manager){
-        if($this->isCsrfTokenValid('delete' . $chambre->getId(),$request->get('_token'))){
+    public function delete(Chambre $chambre, Request $request, ManagerRegistry $manager)
+    {
+        if ($this->isCsrfTokenValid('delete' . $chambre->getId(), $request->get('_token'))) {
             $managers = $manager->getManager();
             $managers->remove($chambre);
             $managers->flush();
-
         }
         return $this->redirectToRoute('listerChambre');
     }

@@ -10,12 +10,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 class EtudiantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('matricule')
+
             ->add('prenom')
             ->add('nom')
             ->add('email')
@@ -42,8 +43,7 @@ class EtudiantType extends AbstractType
             ->add('chambre', EntityType::class, [
                 'class' => Chambre::class,
                 'choice_label' => 'id'
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

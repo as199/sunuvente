@@ -2,52 +2,52 @@
 {% form_theme formEtudiant 'bootstrap_4_layout.html.twig' %}
 {% block body %}
 
-{{form_start(formEtudiant) }}
+  {{form_start(formEtudiant) }}
 
-<div class="container">
-  <div class="form-row col-md-12">
-    <div class="col-md-6">
+  <div class="container">
+    <div class="form-row col-md-12">
+      {# <div class="col-md-6">
       {{form_row(formEtudiant.matricule, {'attr': {'placeholder':'votre matricule'},'type':'text'}) }}
+    </div> #}
+      <div class="col-md-6">
+        {{form_row(formEtudiant.prenom, {'attr': {'placeholder':'votre prénom'},'type':'text'}) }}
+      </div>
     </div>
-    <div class="col-md-6">
-      {{form_row(formEtudiant.prenom, {'attr': {'placeholder':'votre prénom'},'type':'text'}) }}
+    <div class="form-row col-md-12">
+      <div class="col-md-6">
+        {{form_row(formEtudiant.nom, {'attr': {'placeholder':'votre nom'},'type':'text'}) }}
+      </div>
+      <div class="col-md-6">
+        {{form_row(formEtudiant.email, {'attr': {'placeholder':'votre email'},'type':'text'}) }}
+      </div>
     </div>
-  </div>
-  <div class="form-row col-md-12">
-    <div class="col-md-6">
-      {{form_row(formEtudiant.nom, {'attr': {'placeholder':'votre nom'},'type':'text'}) }}
+    <div class="form-row col-md-12">
+      <div class="col-md-6">
+        {{form_row(formEtudiant.dateNaissance, {'attr': {'type':'date'}}) }}
+      </div>
+      <div class="col-md-6">
+        {{form_row(formEtudiant.telephone, {'attr': {'placeholder':'votre numéro de téléphone'},'type':'text'}) }}
+      </div>
     </div>
-    <div class="col-md-6">
-      {{form_row(formEtudiant.email, {'attr': {'placeholder':'votre email'},'type':'text'}) }}
-    </div>
-  </div>
-  <div class="form-row col-md-12">
-    <div class="col-md-6">
-      {{form_row(formEtudiant.dateNaissance, {'attr': {'type':'date'}}) }}
-    </div>
-    <div class="col-md-6">
-      {{form_row(formEtudiant.telephone, {'attr': {'placeholder':'votre numéro de téléphone'},'type':'text'}) }}
-    </div>
-  </div>
 
-  <div class="form-row col-md-12">
-    <div class="col-md-6" >
-      {{form_row(formEtudiant.type, {'attr': {'id':'typ'}}) }}
+    <div class="form-row col-md-12">
+      <div class="col-md-6">
+        {{form_row(formEtudiant.type, {'attr': {'id':'typ'}}) }}
+      </div>
+      <div class="col-md-6" id="cacheChambre">
+        {{form_row(formEtudiant.chambre, {'attr': {'value':'null'}}) }}
+      </div>
     </div>
-    <div class="col-md-6"id="cacheChambre">
-      {{form_row(formEtudiant.chambre, {'attr': {'value':'null'}}) }}
+    <div class="form-row col-md-12">
+      <div class="col-md-6" id="cacheAdresse">
+        {{form_row(formEtudiant.adresse, {'attr': {'placeholder':'votre adresse'}}) }}
+      </div>
+      <div class="col-md-6" id="cacheMontant">
+        {{form_row(formEtudiant.montant_bourse) }}
+      </div>
     </div>
   </div>
-  <div class="form-row col-md-12" >
-    <div class="col-md-6"id="cacheAdresse">
-      {{form_row(formEtudiant.adresse, {'attr': {'placeholder':'votre adresse'}}) }}
-    </div>
-    <div class="col-md-6" id="cacheMontant">
-      {{form_row(formEtudiant.montant_bourse) }}
-    </div>
-    </div>
-  </div>
-    <button type="submit" class="btn btn-primary">Ajouter etudiant</button>
+  <button type="submit" class="btn btn-primary">Ajouter etudiant</button>
 </div>
 
 {{form_end(formEtudiant) }}
