@@ -16,38 +16,20 @@ class EtudiantSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('prenom',TextType::class,[
-                'required'=> false,
-                'label'=>false,
-                'attr'=>['placeholder'=>'prenom']
-            ])
-            ->add('matricule',TextType::class,[
-                'required'=> false,
-                'label'=>false,
-                'attr'=>['placeholder'=>'matricule']
-            ])
-            ->add('telephone',NumberType::class,[
-                'required'=> false,
-                'label'=>false,
-                'attr'=>[
-                    'placeholder'=>'telephone'
-                ]
-            ])
-            ->add('nom',TextType::class,[
-                'required'=> false,
-                'label'=>false,
-                'attr'=>['placeholder'=>'nom']
-            ])
 
-        ;
+            ->add('matricule', TextType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => ['placeholder' => 'matricule']
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Recherche::class,
-            'method'=> 'get',
-            'csrf_protection'=> false
+            'method' => 'get',
+            'csrf_protection' => false
         ]);
     }
     public function getBlockPrefix()

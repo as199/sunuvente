@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EtudiantRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=EtudiantRepository::class)
  */
@@ -71,7 +72,7 @@ class Etudiant
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex("/^[0-9]{9}$/")
+     * @Assert\Regex("/^7[0678][0-9]{7}+$/")
      */
     private $telephone;
 
@@ -218,8 +219,4 @@ class Etudiant
 
         return $this;
     }
-
-
-
-
 }

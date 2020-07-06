@@ -15,13 +15,12 @@ class ChambreType extends AbstractType
         $builder
             ->add('numchambre')
             ->add('type', ChoiceType::class, [
-            'choices'  => [
-                '1' => 1,
-                '2' => 2,
+                'choices'  => [
+                    'individuel' => 1,
+                    'à deux' => 2,
 
-            ],
-        ])
-        ;
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
