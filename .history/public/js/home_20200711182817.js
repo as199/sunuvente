@@ -24,10 +24,10 @@ function OnclikBtn(event) {
 }
 /* permet de charger la nouvelle page dans le body */
 function afficher(data) {
-  $("#body").slideUp(100, function () {
+  $("#body").slideUp(50, function () {
     $("#body").empty();
     $("#body").append(data);
-    $("#body").slideDown(200);
+    // $('#body').slideDown(1000);
   });
 }
 document.querySelectorAll("a#menu").forEach(function (lien) {
@@ -38,6 +38,7 @@ document.querySelectorAll("a#menu").forEach(function (lien) {
 function logout(event) {
   event.preventDefault();
   const url = "/logout";
+  alert(url);
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -45,7 +46,7 @@ function logout(event) {
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, logout it!"
+    confirmButtonText: "Yes, delete it!"
   }).then(result => {
     if (result.value) {
       $.ajax({
