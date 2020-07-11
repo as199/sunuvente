@@ -1,0 +1,154 @@
+
+
+{% block body %}
+<h3 class="text text-center">liste chambre</h3>
+
+<table class="table table-striped table-sm table-bordered text-dark bg-light"
+  id="myTable" style="font-size: 15px;">
+  <thead>
+    <!-- entete de la table -->
+    <tr class="text-center text-light text-secondary bg-danger">
+      <th>Numéro Chambre</th>
+      <th>Type</th>
+      <th>Action</th>
+
+    </tr>
+  </thead>
+  <!-- corps de la table -->
+  <tbody>
+    {% for chambre in chambres %}
+    <tr class="text-center text-secondary">
+
+      <td>{{ chambre.numChambre }} </td>
+      <td> {{ chambre.type }}</td>
+      <td><a href="{{ path('chambre_show', {'id': chambre.id}) }}" title="edit
+          chambre" class="btn btn-secondary editBtn" id="{{chambre.id}}">Editer</a>
+        <form action="{{ path('chambre_delete',{'id': chambre.id} ) }}"
+          method="post" style="display: inline-block" onsubmit="return
+          confirm('Voulez vous supprimer ?')">
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="hidden" name="_token" value="{{ csrf_token('delete' ~
+            chambre.id) }}">
+          <button type="submit" class="btn btn-danger">delete</button>
+        </form>
+
+
+      </td>
+
+
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="pagination">
+  {{ knp_pagination_render(chambres) }}
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+  /*pour gerer les bouton next et preview*/
+  function OnclikBtn(event) {
+    event.preventDefault();
+    const page = this.href;
+    $.ajax({
+      url: page,
+      cache: false,
+      success: function (html) {
+        afficher(html);
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("textStatus");
+      }
+    })
+    return false;
+
+  }
+  /*permet de charger la nouvelle page dans le body*/
+  function afficher(data) {
+    $('#body').slideUp(500, function () {
+      $("#body").empty();
+      $("#body").append(data);
+      $('#body').slideDown(1000);
+    })
+
+  }
+  document.querySelectorAll('a.page-link').forEach(function (lien) {
+    lien.addEventListener('click', OnclikBtn)
+  })
+
+  /*pour gerer le bouton edit */
+  function ActionChambre(event) {
+    event.preventDefault();
+    const page = this.href;
+    $.ajax({
+      url: page,
+      cache: false,
+      success: function (html) {
+        afficher(html);
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("textStatus");
+      }
+    })
+    return false;
+
+  }
+  /*permet de charger la nouvelle page dans le body*/
+  function afficher(data) {
+    $('#body').slideUp(500, function () {
+      $("#body").empty();
+      $("#body").append(data);
+      $('#body').slideDown(1000);
+    })
+
+  }
+  document.querySelectorAll('a.editBtn').forEach(function (lien) {
+    lien.addEventListener('click', ActionChambre)
+  })
+
+
+   /*pour gerer le bouton delete */
+  $('form').submit(function (e) {
+    e.preventDefault();
+
+    let form = $(this);
+    let url = form.attr('action');
+    let data = form.serialize();
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: data,
+      success: function (response) {
+        const rep = response.code;
+        if (rep == '200') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Bravo...',
+            text: 'Chambre supprimer avec success!',
+            showConfirmButton: false,
+            timer: 2000
+          })
+          $("form")[0].reset();
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Error...',
+            text: 'Chambre non supprimer!',
+            showConfirmButton: false,
+            timer: 2000
+          })
+          $("form")[0].reset();
+        }
+      },
+    });
+  });
+
+
+    // document.querySelectorAll('button').forEach(function (lien) {
+    //     lien.addEventListener('click', OnclikBouton)
+    //   })
+</script>
+{% endblock %}

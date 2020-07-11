@@ -1,0 +1,54 @@
+
+
+{% block body %}
+{{form_start(chambre) }}
+<div class="container">
+  <div class="row col-md-12">
+    <input type="hidden" id="idcham"value="{{id}}">
+    <div class="col-md-6">
+      {{form_row(chambre.numchambre) }}
+    </div>
+  </div>
+  <div class="row col-md-12"></div>
+  <div class="col-md-6">
+    {{form_row(chambre.type) }}
+  </div>
+</div>
+<button type="submit" class="btn btn-primary">Editer </button>
+</div>
+{{form_end(chambre) }}
+{% endblock %}
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="{{ asset('js/editChambre.js')}}"></script>
+<script>
+  $('form').submit(function (e) {
+    e.preventDefault();
+
+    var id = $("#idcham").val();
+    let form = $(this);
+    let url = '/page/id/'+id;
+    let data = form.serialize();
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: data,
+      success: function (response) {
+        console.log(response);
+        const rep = response.code;
+        if (rep == '200') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Bravo...',
+            text: 'Chambre modifier avec success!',
+            showConfirmButton: false,
+            timer: 2000
+          })
+          $("form")[0].reset();
+        }
+      },
+    });
+  });
+</script>
+{% endblock %}

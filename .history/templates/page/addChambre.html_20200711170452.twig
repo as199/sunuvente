@@ -1,0 +1,26 @@
+
+
+{% block body %}
+<h3 class="text text-center">Ajouter chambre</h3>
+{{form_start(formChambre) }}
+<div class="container">
+  <div class="row col-md-12">
+    <div class="col-md-6">
+      {{form_row(formChambre.numchambre, {'attr': {'placeholder':'numero de chambre'}}) }}
+    </div>
+  </div>
+  <div class="row col-md-12"></div>
+    <div class="col-md-6">
+      {{form_row(formChambre.type, {'attr': {'placeholder':'le type de chambre'}}) }}
+    </div>
+  </div>
+  <button type="submit" id="addCham" class="btn btn-primary">Ajouter Chambre</button>
+</div>
+{{form_end(formChambre) }}
+{% endblock %}
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="{{ asset('js/addChambre.js')}}"></script>
+href="">
+{% endblock %}

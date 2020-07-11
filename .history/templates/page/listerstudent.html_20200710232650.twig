@@ -1,0 +1,82 @@
+
+
+{% block body %}
+<h3 class="text text-center">
+  Liste des Etudiants</h3>
+<div class="container">
+
+  {{ form_start(form) }}
+  <div class="form-row">
+    <div class="col">
+      {{ form_row(form.matricule) }}
+    </div>
+
+    <div class="col">
+      <button class="btn btn-primary">Rechercher</button>
+    </div>
+  </div>
+  {{ form_end(form) }}
+
+</div>
+<div class="container">
+
+  {% for message in app.flashes('success') %}
+  <div class="alert alert-success">
+    {{ message }}
+  </div>
+  {% endfor %}
+  <table class="table table-striped table-sm table-bordered text-dark bg-light"
+    id="myTable" style="font-size: 15px;">
+    <thead>
+      <!-- entete de la table -->
+      <tr class="text-center text-light text-secondary bg-danger">
+        <th>Matricule</th>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>E-mail</th>
+        <th>Type</th>
+        <th>Telephone</th>
+        <th>DateNaiss</th>
+        <th>Voir infos</th>
+
+      </tr>
+    </thead>
+    <!-- corps de la table -->
+    <tbody>
+      {% for etudiant in etudiants %}
+      <tr class="text-center text-secondary">
+
+        <td>{{ etudiant.matricule }}
+        </td>
+        <td>
+          {{ etudiant.prenom }}</td>
+        <td>
+          {{ etudiant.nom }}</td>
+        <td>{{ etudiant.email }}
+        </td>
+        <td>
+          {{ etudiant.type }}</td>
+        <td>
+          {{ etudiant.telephone }}</td>
+        <td>{{ etudiant.dateNaissance | date('d/m/Y') }}
+        </td>
+        <td>
+          <a href="{{ path('student_show', {'id': etudiant.id}) }}" title="Voir
+            infos" class="text-success editBtn" id="{{
+            etudiant.matricule}}">
+            <i class="fa fa-info-circle"></i>
+          </a>
+        </td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    {{ knp_pagination_render(etudiants) }}
+  </div>
+
+</div>
+
+{% endblock %}

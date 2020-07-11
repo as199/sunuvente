@@ -1,0 +1,28 @@
+
+
+{% block body %}
+{{form_start(chambre) }}
+<div class="container">
+  <div class="row col-md-12">
+    <input type="hidden" id="idcham"value="{{id}}">
+    <div class="col-md-6">
+      {{form_row(chambre.numchambre) }}
+    </div>
+  </div>
+  <div class="row col-md-12"></div>
+  <div class="col-md-6">
+    {{form_row(chambre.type) }}
+  </div>
+</div>
+<button type="submit" class="btn btn-primary">Editer </button>
+</div>
+{{form_end(chambre) }}
+{% endblock %}
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="{{ asset('js/editChambre.js')}}"></script>
+<script>
+
+</script>
+{% endblock %}

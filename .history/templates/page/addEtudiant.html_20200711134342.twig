@@ -1,0 +1,91 @@
+
+{% form_theme formEtudiant 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+  {{form_start(formEtudiant) }}
+
+  <div class="container">
+    <div class="form-row col-md-12">
+      {# <div class="col-md-6">
+      {{form_row(formEtudiant.matricule, {'attr': {'placeholder':'votre matricule'},'type':'text'}) }}
+    </div> #}
+      <div class="col-md-6">
+        {{form_row(formEtudiant.prenom, {'attr': {'placeholder':'votre prénom'},'type':'text'}) }}
+      </div>
+    </div>
+    <div class="form-row col-md-12">
+      <div class="col-md-6">
+        {{form_row(formEtudiant.nom, {'attr': {'placeholder':'votre nom'},'type':'text'}) }}
+      </div>
+      <div class="col-md-6">
+        {{form_row(formEtudiant.email, {'attr': {'placeholder':'votre email'},'type':'text'}) }}
+      </div>
+    </div>
+    <div class="form-row col-md-12">
+      <div class="col-md-6">
+        {{form_row(formEtudiant.dateNaissance, {'attr': {'type':'date'}}) }}
+      </div>
+      <div class="col-md-6">
+        {{form_row(formEtudiant.telephone, {'attr': {'placeholder':'votre numéro de téléphone'},'type':'text'}) }}
+      </div>
+    </div>
+
+    <div class="form-row col-md-12">
+      <div class="col-md-6">
+        {{form_row(formEtudiant.type, {'attr': {'id':'typ'}}) }}
+      </div>
+      <div class="col-md-6" id="cacheChambre">
+        {{form_row(formEtudiant.chambre, {'attr': {'value':'null'}}) }}
+      </div>
+    </div>
+    <div class="form-row col-md-12">
+      <div class="col-md-6" id="cacheAdresse">
+        {{form_row(formEtudiant.adresse, {'attr': {'placeholder':'votre adresse'}}) }}
+      </div>
+      <div class="col-md-6" id="cacheMontant">
+        {{form_row(formEtudiant.montant_bourse) }}
+      </div>
+    </div>
+  </div>
+  <button type="submit" id="addEtu" class="btn btn-primary">Ajouter etudiant</button>
+</div>
+
+{{form_end(formEtudiant) }}
+
+{% endblock %}
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+  $('form').submit(function (e) {
+    e.preventDefault();
+
+    let form = $(this);
+    let url = '/page/addEtu';
+    let data = form.serialize();
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: data,
+      success: function (response) {
+        const rep = response.code;
+        if (rep == '200') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Bravo...',
+            text: 'Etudiant enregistrer avec success!',
+            showConfirmButton: false,
+            timer: 2000
+          })
+          $("form")[0].reset();
+        }
+      },
+    });
+  });
+
+
+    // document.querySelectorAll('button').forEach(function (lien) {
+    //     lien.addEventListener('click', OnclikBouton)
+    //   })
+</script>
+{% endblock %}
